@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Configures the extensions and settings typically I use with VS Code.
+
+# Install extension dependencies
+pip3 install \
+    'python-language-server[all]' # Required for the Python extension
+
+# Install extensions
+code \
+    --install-extension christian-kohler.path-intellisense \
+    --install-extension ms-python.python \
+    --install-extension ms-vscode.cpptools \
+    --install-extension naumovs.color-highlight \
+    --install-extension peterjausovec.vscode-docker \
+    --install-extension sdras.night-owl \
+    --install-extension tyriar.sort-lines
+
+# Import settings
+mkdir -p ~/.atom
+cp ~/github/utilities/VS\ Code/settings.json \
+    ~/Library/Application\ Support/Code/User/

@@ -1,0 +1,21 @@
+"*":
+  core:
+    closeEmptyWindows: false
+    openEmptyEditorOnStart: false
+    restorePreviousWindowsOnStart: "no"
+    telemetryConsent: "limited"
+    titleBar: "custom-inset"
+  editor:
+    fontFamily: "\"Fira Code\", Menlo, Consolas, DejaVu Sans Mono, monospace"
+    fontSize: 12
+    scrollPastEnd: true
+    showIndentGuide: true
+    tabLength: 4
+  "ide-python":
+    python: "python3"
+  minimap:
+    plugins:
+      cursorline: true
+      cursorlineDecorationsZIndex: 0
+  welcome:
+    showOnStartup: false

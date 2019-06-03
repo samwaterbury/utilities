@@ -1,0 +1,208 @@
+#!/usr/bin/env bash
+#
+# Describes my steps to get a fresh macOS installation up and running.
+#
+# This file is not guaranteed to run straight through without failure. Rather,
+# the lines should be run individually to catch any problems that arise.
+#
+# There are also some steps that involve performing actions outside of the
+# terminal. For these, the accompanying commands are commented-out so that
+# the steps are not partially completed if this script is executed. The lines
+# containing these commands start with ## (instead of #) for clarity.
+
+###################
+# Pre-Setup Stuff #
+###################
+
+# Install Xcode and then run:
+## xcode-select --install
+# Switch between the two with:
+## sudo xcode-select --switch /Library/Developer/CommandLineTools
+## sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+# Lastly, sign the license:
+## sudo xcodebuild -license
+
+# Make some directories I always use and clone this repo
+ssh-keygen
+# Add this public key to GitHub
+mkdir -p ~/github
+mkdir -p ~/Documents/working-directory
+git clone git@github.com:samwaterbury/utilities.git ~/github/utilities
+
+# Terminal configuration
+cp ~/github/utilities/macOS/dotfiles/.bash_profile ~
+cp ~/github/utilities/macOS/dotfiles/.inputrc ~
+cp ~/github/utilities/macOS/dotfiles/.ssh_aliases ~
+touch ~/.hushlogin
+
+# ----------------- #
+# Homebrew Packages #
+# ----------------- #
+
+# Install Homebrew package manager
+/usr/bin/ruby -e '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'
+brew doctor
+brew update
+
+# To install casks to the user Applications folder instead of for all users, do:
+## echo "export HOMEBREW_CASK_OPTS='--appdir=~/Applications'" >> ~/.bash_profile
+
+# Brew taps
+brew tap homebrew/cask-versions
+
+# Install brew packages
+brew install \
+    bash \
+    bash-completion \
+    cmake \
+    colordiff \
+    cowsay \
+    fortune \
+    gcc \
+    git \
+    gpg \
+    hdf5 \
+    jq \
+    libgit2 \
+    lolcat \
+    neofetch \
+    node \
+    pandoc \
+    pinentry-mac \
+    python \
+    r \
+    ruby \
+    rust \
+    sbt \
+    scala \
+    speedtest-cli \
+    thefuck \
+    trash \
+    tree \
+    vim \
+    watch \
+    wget
+
+# Install brew casks
+brew cask install \
+    4k-video-downloader \
+    alacritty \
+    atom \
+    balenaetcher \
+    brooklyn \
+    discord \
+    docker \
+    firefox \
+    firefox-nightly \
+    github \
+    google-chrome \
+    homebrew/cask-fonts/font-fira-code \
+    hyper \
+    ipvanish-vpn \
+    java \
+    julia \
+    kite \
+    kitematic \
+    macpass \
+    mactex texpad \
+    mark-text \
+    miniconda \
+    pycharm \
+    rstudio \
+    sequel-pro \
+    slack \
+    spotify \
+    steam \
+    the-unarchiver \
+    transmission \
+    visual-studio-code \
+    vlc \
+    webtorrent \
+    xquartz \
+    zoomus
+
+# If `echo $BASH_VERSION` does not show the new version, do the following:
+## sudo sh -c "echo '/usr/local/bin/bash' >> /etc/shells"
+## chpass -s /usr/local/bin/bash
+# Log out and log in again
+
+# Hyper terminal configuration
+cp ~/github/utilities/macOS/dotfiles/.hyper.js ~
+
+# Configure Vim and its plugin manager
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir -p ~/.vim/colors && cp ~/github/utilities/Vim/delek-nobold.vim \
+    ~/.vim/colors
+cp ~/github/utilities/Vim/.vimrc ~
+# (open vim and run `:PlugUpdate`)
+
+# Configure Git and enable commit signing
+git config --global user.name 'Sam Waterbury'
+git config --global user.email 'samwaterbury1@gmail.com'
+# Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
+## mkdir -p ~/.gnupg
+## echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+## killall gpg-agent
+## gpg --full-generate-key
+# (RSA and RSA, 4096 bits)
+## gpg --list-secret-keys --keyid-format LONG
+# Let <*> denote the ID from above at: "...sec   rsa4096/<*> ..."
+## gpg --armor --export <*>
+# (Add GPG key to GitHub)
+## git config --global user.signingkey <*>
+## git config --global commit.gpgsign true
+## git config --global gpg.program gpg
+
+# Command line tools for macOS
+sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"
+
+# Move PIP configuration file
+mkdir -p ~/.config/pip
+cp ~/github/utilities/Python/pip.conf ~/.config/pip
+
+# conda-forge is a vital package channel for Anaconda
+conda config --add channels conda-forge
+
+# Gradle needed the Java cask to be installed first
+brew install gradle
+
+# Atom configuration
+bash ~/github/utilities/Atom/setup
+
+# A useful editor for working with absoutely massive files
+sudo sh ~/github/utilities/macOS/xi-build
+
+# Lightweight PDF viewer with support for inverting colors!!!
+brew install zegervdv/zathura/zathura zegervdv/zathura/zathura-pdf-poppler
+mkdir -p $(brew --prefix zathura)/lib/zathura
+ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib \
+    $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
+mkdir -p ~/.config/zathura
+echo "set selection-clipboard clipboard" >> ~/.config/zathura/zathurarc
+echo "set adjust-open width" >> ~/.config/zathura/zathurarc
+
+# Install NPM packages
+npm install --global vmd # Favorite way to open markdown files
+npm install --global dark-mode-cli # Change macOS system theme from terminal
+
+# Sometimes the default system Gem installation can't find Xcode's libxml2:
+## sudo gem install libxml-ruby -- --with-xml2-include=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 --use-system-libraries
+## sudo gem update
+
+# Install from the App Store
+# - Pages
+# - Keynote
+# - Shazam
+# - Dark Mode for Safari
+# - Ka-Block!
+# - PiPifier - PiP for nearly every video
+# - Capo 3
+
+##########################
+# Settings Customization #
+##########################
+
+# Go to Terminal -> Preferences -> Profiles and import the following profile:
+# ~/github/utilities/macOS/One Dark.terminal
+# Then set it as the default.

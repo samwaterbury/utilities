@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Builds the Xi Editor for macOS and puts it in /Applications
+# Steps taken from: https://github.com/xi-editor/xi-mac
+
+brew install rust
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+
+cd ~/github
+git clone --recurse-submodules https://github.com/xi-editor/xi-mac
+
+xcodebuild
+cp -r Build/Release/XiEditor.app /Applications

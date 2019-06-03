@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# Configures the packages and settings typically I use with Atom.
+
+# Install plugin dependencies
+pip3 install \
+    'python-language-server[all]' \ # Required for ide-python
+    IPython # Required for Hydrogen
+
+# Install plugins
+apm install \
+    atom-ide-ui \
+    atom-language-r \
+    city-lights-icons
+    city-lights-syntax \
+    city-lights-ui \
+    file-icons \
+    git-history \
+    git-time-machine \
+    hydrogen \
+    hydrogen-python \
+    ide-python \
+    language-docker \
+    language-julia \
+    language-markdown \
+    language-scala \
+    minimap \
+    minimap-cursorline \
+    pigments \
+    python-indent \
+    sort-lines
+
+# Import settings
+mkdir -p ~/.atom
+cp ~/github/utilities/Atom/config.cson ~/.atom

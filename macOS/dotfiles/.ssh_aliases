@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# SSH server aliases
+
+PLACEHOLDER='This command has not been entered in .bash_profile!'
+alias ssh-home='echo $PLACEHOLDER'
+alias ssh-local='echo $PLACEHOLDER'

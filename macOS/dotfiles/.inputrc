@@ -1,0 +1,2 @@
+# Ignore case when using tab auto-completion
+set completion-ignore-case on

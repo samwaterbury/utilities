@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Creates the Python env I use for training the terminator (and other tasks).
+
+set -e
+VIRTUAL_ENV_DIR=~/virtualenv
+
+# Install with conda
+if [ "$1" = "--conda" ]; then
+
+    # Setup
+    . /usr/local/miniconda3/etc/profile.d/conda.sh
+    conda create --yes --name dragons
+    conda activate dragons
+
+    # Packages
+    conda install \
+        numpy scipy pandas jupyterlab tqdm \
+        scikit-learn statsmodels tensorflow \
+        xgboost catboost lightgbm \
+        nltk spacy \
+        pywavelets \
+        matplotlib seaborn bokeh plotly \
+        'python-language-server[all]' flake8 pep8 pytest
+
+    # Finish
+    conda deactivate
+
+# Install with PIP
+elif [ "$1" = "--virtualenv" ]; then
+
+    # Setup
+    mkdir -p $VIRTUAL_ENV_DIR
+    cd $VIRTUAL_ENV_DIR
+    virtualenv dragons
+    . dragons/bin/activate
+
+    # Packages
+    pip3 install \
+        numpy scipy pandas jupyterlab tqdm \
+        scikit-learn statsmodels tensorflow \
+        xgboost catboost lightgbm \
+        nltk spacy \
+        pywt \
+        matplotlib seaborn bokeh plotly \
+        'python-language-server[all]' flake8 pep8 pytest
+
+else
+    echo "Specify the environment manager to use with --virtualenv or --conda."
+    exit 1
+fi

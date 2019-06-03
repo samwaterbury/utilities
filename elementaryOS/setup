@@ -1,0 +1,247 @@
+#!/usr/bin/env bash
+#
+# Describes my steps to get a fresh elementaryOS installation up and running.
+#
+# This file is not guaranteed to run straight through without failure. Rather,
+# the lines should be run individually to catch any problems that arise.
+#
+# There are also some steps that involve performing actions outside of the
+# terminal. For these, the accompanying commands are commented-out so that
+# the steps are not partially completed if this script is executed. The lines
+# containing these commands start with ## (instead of #) for clarity.
+
+###########
+# Drivers #
+###########
+
+# I often run into problems with Nvidia drivers, due in part to Nouveau, which
+# needs to be destroyed with fire.
+
+# Start by removing existing Nvidia drivers and get some required packages
+sudo apt remove nvidia*
+sudo apt update && sudo apt autoremove
+sudo apt install dkms build-essential linux-headers-generic
+
+# Zap Nouveau
+sudo touch /etc/modprobe.d/blacklist-nouveau.conf
+echo 'blacklist nouveau' | sudo tee -a \
+    /etc/modprobe.d/blacklist-nouveau.conf
+echo 'blacklist lbm-nouveau' | sudo tee -a \
+    /etc/modprobe.d/blacklist-nouveau.conf
+echo 'options nouveau modeset=0' | sudo tee -a \
+    /etc/modprobe.d/blacklist-nouveau.conf
+echo 'alias nouveau off' | sudo tee -a \
+    /etc/modprobe.d/blacklist-nouveau.conf
+echo 'alias lbm-nouveau off' | sudo tee -a \
+    /etc/modprobe.d/blacklist-nouveau.conf
+sudo update-initramfs -u
+
+# Get latest drivers
+sudo ubuntu-drivers autoinstall
+
+###################
+# Pre-Setup Stuff #
+###################
+
+# SSH is fundamental
+sudo apt install openssh-client openssh-server && ssh-keygen
+
+# Git setup
+sudo apt install git
+git config --global user.name 'Sam Waterbury'
+git config --global user.email 'samwaterbury1@gmail.com'
+# (Add private key to GitHub account)
+# Finish setting up git
+# Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
+
+# Make some directories I always use and clone this repo
+mkdir -p ~/github
+mkdir -p ~/Documents/working-directory
+git clone git@github.com:samwaterbury/utilities.git ~/github/utilities
+
+# Terminal configuration
+cp ~/github/utilities/elementaryOS/dotfiles/.bashrc ~
+cp ~/github/utilities/elementaryOS/dotfiles/.ssh_aliases ~
+
+############
+# Software #
+############
+
+# Start adding packages
+sudo apt install \
+    cmake \
+    curl \
+    colordiff \
+    default-jre default-jdk \
+    firefox \
+    fonts-firacode \
+    gdebi \
+    gedit \
+    gparted \
+    libhdf5-serial-dev \
+    neofetch \
+    net-tools \
+    npm \
+    ppa-purge \
+    python python-pip \
+    python3 python3-pip \
+    r-base \
+    scala \
+    snapd \
+    software-properties-common \
+    speedtest-cli \
+    steam \
+    thefuck \
+    thunderbird \
+    transmission \
+    tree \
+    vim \
+    vlc
+
+# Vim configuration
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir -p ~/.vim/colors && cp ~/github/utilities/Vim/delek-nobold.vim \
+    ~/.vim/colors
+cp ~/github/utilities/Vim/.vimrc ~
+# (open vim and run `:PlugUpdate`)
+
+# Snap packages
+sudo snap install spotify discord
+sudo snap install --classic code
+
+# Atom text editor
+sudo add-apt-repository ppa:webupd8team/atom
+sudo apt install atom
+sh ~/github/utilities/Atom/setup
+
+# Google Chrome is my backup browser to Firefox
+sudo apt install libxss1 libappindicator1 libindicator7
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+
+# Miniconda
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
+# (new shell)
+conda config --add channels conda-forge
+
+# JetBrains software
+# (download the Toolbox: https://www.jetbrains.com/toolbox/app/)
+# cd path/to/toolbox.tar.gz
+tar -xzf jetbrains-toolbox-*.tar.gz
+cd jetbrains-toolbox-*
+sudo mkdir -p /opt/jetbrains-toolbox
+sudo cp jetbrains-toolbox /opt/jetbrains-toolbox/
+sudo chmod u+x /opt/jetbrains-toolbox/jetbrains-toolbox
+./opt/jetbrains-toolbox/jetbrains-toolbox
+# (install stuff from it)
+
+# NPM packages
+sudo npm install --global vmd # Best way to open markdown files
+
+# Docker
+sudo apt update
+sudo apt install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -csu) \
+   stable"
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+
+# Add current user to the Docker group
+sudo usermod -a -G docker $USER
+# (log out and log in again)
+
+# Nvidia Docker
+# (Nvidia drivers must be installed already)
+# Instructions here: https://github.com/NVIDIA/nvidia-docker
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt update
+
+# Nvidia Docker
+# (Nvidia drivers must be installed already)
+# Instructions here: https://github.com/NVIDIA/nvidia-docker
+# Get the closest version of Ubuntu by running `lsb_release -a -u`.
+# Then set `distribution="ubuntuXX.XX"`, e.g., `distribution="ubuntu18.04"`.
+# Then run the following:
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt update
+sudo apt install nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+#########################
+# elementaryOS-Specific #
+#########################
+
+# ----- (FIX SLEEP MODE PROBLEM) -----
+
+# I experience a bug where the system disables ethernet and goes to sleep after
+# 20 minutes of inactivity. This happens even when disabling it in the power
+# options section of the System Settings. This is how I fix it:
+
+# Ethernet part first:
+sudo -s
+su -s /bin/bash lightdm
+dbus-launch gsettings get \
+    org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type
+dbus-launch gsettings get \
+    org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout
+exit
+
+# Suspension part:
+# (new terminal)
+dbus-launch gsettings set org.gnome.settings-daemon.plugins.power \
+    sleep-inactive-ac-type nothing
+exit
+# (restart)
+
+# ----- (END SLEEP MODE PROBLEM) -----
+
+# Fix low-resolution boot menu
+## sudo vim /etc/default/grub
+# (Change "# GRUB_GFXMODE=..." to the correct resolution)
+## sudo vim /etc/grub.d/00_header
+# (Add the line "set gfxpayload=keep" underneath "set gfxmode=${GRUB_GFXMODE}")
+## sudo update-grub
+
+# Enables "Tweaks" options in System Settings
+sudo add-apt-repository ppa:philip.scott/elementary-tweaks && sudo apt update
+sudo apt install elementary-tweaks
+
+# Arc theme for GTK+ looks great
+sudo apt install arc-theme
+
+# Replace icons to make Arc theme look better
+## git clone git@github.com:horst3180/arc-icon-theme.git
+# (modify Arc/index.theme: `Inherits=elementary,Adwaita,gnome,hicolor`)
+## ./autogen.sh --prefix=/usr && sudo make install
+
+# Allows me to set a hot corner that shows the Desktop, as in Microsoft Windows
+sudo apt install wmctrl
+
+# Go to System Settings -> Tweaks -> Appearance and set the following options:
+# - Set GTK+ to "Arc-Dark"
+# - Set Icons to "Arc"
+# - Turn on Prefer dark variant
+# - Set Layout to "OS X"
+# Go to System Settings -> Tweaks -> Terminal and set the following options:
+# - Set Background color to #383c4a and 95% opacity (default: #252E32, 95%)
+# - Turn off Remember tabs
+# Go to System Settings -> Desktop -> Hot Corners and set the following options:
+# - Set lower-right as `wmctrl -k on`
+# - Set lower-left as "Multitasking View"
