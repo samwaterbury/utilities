@@ -38,21 +38,11 @@ export LSCOLORS=Exfxcxdxbxegedabagacad # BOLD DIRECTORIES
 # export PS1="\h:\W \u\$ " # DEFAULT
 export PS1="\[\e[1;32m\]\u@macOS\[\e[m\]:\[\e[1;34m\]\W\[\e[m\]\$ " # GREEN-BLUE
 
-# Virtualenv helper function
-activate () {
-    source "$HOME/virtualenv/$1/bin/activate"
-}
-
 # Miniconda
 . /usr/local/miniconda3/etc/profile.d/conda.sh
 
-# Daily adage/fortune
-alias fortune="fortune | cowsay | lolcat"
-cutoff=$(date -v 6H -v 0M -v 0S +%s)
-if [[ ( ! -f ~/.fortune ) \
-  || ( `stat -f %m ~/.fortune` < $cutoff && $cutoff < `date +%s`) ]]; then
-    fortune && touch ~/.fortune
-fi
+# Install Homebrew casks to ~/Applications instead of /Applications
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
 # Use Homebrew Ruby instead of the default system installation
 export PATH="/usr/local/opt/ruby/bin:$PATH"

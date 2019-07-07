@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Installs the PIP packages I typically use globally.
+
+set -e
+
+pip3 install \
+    'python-language-server[all]' \
+    flake8 \
+    ipython \
+    jupyterlab virtualenv \
+    kaggle \
+    mypy \
+    numpy \
+    pandas \
+    pycodestyle \
+    pytest \
+    scipy \
+    tqdm

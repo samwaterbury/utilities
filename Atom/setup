@@ -4,14 +4,14 @@
 
 # Install plugin dependencies
 pip3 install \
-    'python-language-server[all]' \ # Required for ide-python
-    IPython # Required for Hydrogen
+    'python-language-server[all]' \
+    IPython
 
 # Install plugins
 apm install \
     atom-ide-ui \
     atom-language-r \
-    city-lights-icons
+    city-lights-icons \
     city-lights-syntax \
     city-lights-ui \
     file-icons \
@@ -28,7 +28,8 @@ apm install \
     minimap-cursorline \
     pigments \
     python-indent \
-    sort-lines
+    sort-lines \
+    split-diff
 
 # Import settings
 mkdir -p ~/.atom

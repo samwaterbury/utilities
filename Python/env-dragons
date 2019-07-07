@@ -10,18 +10,35 @@ if [ "$1" = "--conda" ]; then
 
     # Setup
     . /usr/local/miniconda3/etc/profile.d/conda.sh
-    conda create --yes --name dragons
+    conda create --yes --name dragons python pip
     conda activate dragons
 
     # Packages
-    conda install \
-        numpy scipy pandas jupyterlab tqdm \
-        scikit-learn statsmodels tensorflow \
-        xgboost catboost lightgbm \
-        nltk spacy \
+    conda install --yes \
+        'python-language-server[all]' \
+        bokeh plotly \
+        catboost \
+        flake8 \
+        ipython \
+        jupyterlab \
+        keras \
+        lightgbm \
+        matplotlib \
+        nltk \
+        numpy \
+        pandas \
+        pep8 \
+        pytest \
         pywavelets \
-        matplotlib seaborn bokeh plotly \
-        'python-language-server[all]' flake8 pep8 pytest
+        scikit-learn \
+        scipy \
+        seaborn \
+        spacy \
+        statsmodels \
+        tensorflow \
+        tqdm \
+        virtualenv \
+        xgboost
 
     # Finish
     conda deactivate
@@ -37,13 +54,29 @@ elif [ "$1" = "--virtualenv" ]; then
 
     # Packages
     pip3 install \
-        numpy scipy pandas jupyterlab tqdm \
-        scikit-learn statsmodels tensorflow \
-        xgboost catboost lightgbm \
-        nltk spacy \
-        pywt \
-        matplotlib seaborn bokeh plotly \
-        'python-language-server[all]' flake8 pep8 pytest
+        'python-language-server[all]' \
+        bokeh plotly \
+        catboost \
+        flake8 \
+        ipython \
+        jupyterlab \
+        lightgbm \
+        matplotlib \
+        nltk \
+        numpy \
+        pandas \
+        pep8 \
+        pytest \
+        pywavelets \
+        scikit-learn \
+        scipy \
+        seaborn \
+        spacy \
+        statsmodels \
+        tensorflow \
+        tqdm \
+        virtualenv \
+        xgboost
 
 else
     echo "Specify the environment manager to use with --virtualenv or --conda."
