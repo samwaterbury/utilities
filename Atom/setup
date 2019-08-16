@@ -11,16 +11,12 @@ pip3 install \
 apm install \
     atom-ide-ui \
     atom-language-r \
-    city-lights-icons \
-    city-lights-syntax \
-    city-lights-ui \
     file-icons \
     git-history \
     git-time-machine \
-    hydrogen \
-    hydrogen-python \
     ide-python \
     language-docker \
+    language-jenkinsfile \
     language-julia \
     language-markdown \
     language-scala \
@@ -28,6 +24,7 @@ apm install \
     minimap-cursorline \
     pigments \
     python-indent \
+    https://github.com/samwaterbury/atom-python-black.git \
     sort-lines \
     split-diff
 

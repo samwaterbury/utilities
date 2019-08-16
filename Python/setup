@@ -8,12 +8,15 @@ pip3 install \
     'python-language-server[all]' \
     flake8 \
     ipython \
-    jupyterlab virtualenv \
+    jupyterlab \
     kaggle \
     mypy \
     numpy \
     pandas \
-    pycodestyle \
+    pyls-isort \
     pytest \
     scipy \
     tqdm
+
+mkdir -p ~/.config/mypy
+cp ~/github/utilities/Python/config ~/.config/mypy

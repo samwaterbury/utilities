@@ -1,6 +1,9 @@
 "*":
   core:
     closeEmptyWindows: false
+    disabledPackages: [
+      "language-gfm"
+    ]
     openEmptyEditorOnStart: false
     restorePreviousWindowsOnStart: "no"
     telemetryConsent: "limited"
@@ -12,10 +15,12 @@
     showIndentGuide: true
     tabLength: 4
   "ide-python":
-    python: "python3"
+    python: "/usr/local/bin/python"
   minimap:
     plugins:
       cursorline: true
       cursorlineDecorationsZIndex: 0
+  "python-black":
+    fmtOnSave: false
   welcome:
     showOnStartup: false

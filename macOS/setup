@@ -64,6 +64,7 @@ brew install \
     hdf5 \
     jq \
     libgit2 \
+    libomp \
     neofetch \
     node \
     openssl \

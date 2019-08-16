@@ -8,6 +8,8 @@ alias less="less -r"
 alias weather="curl -s wttr.in | head -38"
 alias nf="neofetch"
 alias format-json="python -mjson.tool"
+alias pause="kill -TSTP"
+alias resume="kill -CONT"
 eval "$(thefuck --alias)"
 
 # Path aliases
