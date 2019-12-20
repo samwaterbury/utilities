@@ -6,14 +6,13 @@ set -e
 
 pip3 install \
     'python-language-server[all]' \
-    flake8 \
     ipython \
     jupyterlab \
     kaggle \
     mypy \
     numpy \
     pandas \
-    pyls-isort \
+    proselint \
     pytest \
     scipy \
     tqdm

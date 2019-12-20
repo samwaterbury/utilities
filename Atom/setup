@@ -9,25 +9,26 @@ pip3 install \
 
 # Install plugins
 apm install \
-    atom-ide-ui \
-    atom-language-r \
-    file-icons \
-    git-history \
-    git-time-machine \
-    ide-python \
-    language-docker \
-    language-jenkinsfile \
-    language-julia \
-    language-markdown \
-    language-scala \
-    minimap \
-    minimap-cursorline \
-    pigments \
-    python-indent \
-    https://github.com/samwaterbury/atom-python-black.git \
-    sort-lines \
-    split-diff
+  atom-ide-debugger-python \
+  atom-ide-ui \
+  atom-language-r \
+  file-icons \
+  git-history \
+  git-time-machine \
+  ide-python \
+  language-docker \
+  language-jenkinsfile \
+  language-julia \
+  language-latex \
+  language-markdown \
+  language-scala \
+  minimap \
+  minimap-cursorline \
+  pigments \
+  python-indent \
+  sort-lines \
+  split-diff
 
 # Import settings
 mkdir -p ~/.atom
-cp ~/github/utilities/Atom/config.cson ~/.atom
+ln -s ~/github/utilities/Atom/config.cson ~/.atom/config.cson

@@ -32,9 +32,11 @@ mkdir -p ~/Documents/working-directory
 git clone git@github.com:samwaterbury/utilities.git ~/github/utilities
 
 # Terminal configuration
-cp ~/github/utilities/macOS/dotfiles/.bash_profile ~
-cp ~/github/utilities/macOS/dotfiles/.inputrc ~
-cp ~/github/utilities/macOS/dotfiles/.ssh_aliases ~
+ln -s ~/github/utilities/macOS/dotfiles/.bash_profile ~/.bash_profile
+ln -s ~/github/utilities/macOS/dotfiles/.inputrc ~/.inputrc
+if not [ -e ~/github/utilities/macOS/dotfiles/.bash_secrets ]; then
+  cp ~/github/utilities/macOS/dotfiles/.bash_secrets ~
+fi
 touch ~/.hushlogin
 
 # ----------------- #
@@ -54,76 +56,77 @@ brew tap homebrew/cask-versions
 
 # Install brew packages
 brew install \
-    bash \
-    bash-completion \
-    cmake \
-    colordiff \
-    gcc \
-    git \
-    gpg \
-    hdf5 \
-    jq \
-    libgit2 \
-    libomp \
-    neofetch \
-    node \
-    openssl \
-    pandoc \
-    pinentry-mac \
-    python \
-    r \
-    readline \
-    ruby \
-    rust \
-    sbt \
-    scala \
-    speedtest-cli \
-    sqlite3 \
-    thefuck \
-    trash \
-    tree \
-    vim \
-    watch \
-    wget \
-    xz \
-    zlib
+  bash \
+  bash-completion \
+  cmake \
+  colordiff \
+  ddgr \
+  gcc \
+  git \
+  gpg \
+  hdf5 \
+  jq \
+  libgit2 \
+  libomp \
+  neofetch \
+  node \
+  openssl \
+  pandoc \
+  pinentry-mac \
+  python \
+  r \
+  readline \
+  ruby \
+  rust \
+  sbt \
+  scala \
+  speedtest-cli \
+  sqlite3 \
+  thefuck \
+  tmux \
+  trash \
+  tree \
+  unar \
+  vim \
+  watch \
+  wget \
+  xz \
+  zlib
 
 # Install brew casks
 brew cask install \
-    4k-video-downloader \
-    alacritty \
-    atom \
-    balenaetcher \
-    brooklyn \
-    discord \
-    docker \
-    firefox \
-    firefox-nightly \
-    github \
-    google-chrome \
-    homebrew/cask-fonts/font-fira-code \
-    hyper \
-    ipvanish-vpn \
-    java \
-    julia \
-    kite \
-    kitematic \
-    macpass \
-    mactex texpad \
-    mark-text \
-    miniconda \
-    pycharm \
-    rstudio \
-    slack \
-    spotify \
-    steam \
-    the-unarchiver \
-    transmission \
-    visual-studio-code \
-    vlc \
-    webtorrent \
-    xquartz \
-    zoomus
+  4k-video-downloader \
+  alacritty \
+  atom \
+  balenaetcher \
+  brooklyn \
+  discord \
+  docker \
+  firefox \
+  github \
+  google-chrome \
+  homebrew/cask-fonts/font-fira-code \
+  hyper \
+  ipvanish-vpn \
+  java \
+  julia \
+  macpass \
+  mactex texpad \
+  mark-text \
+  miniconda \
+  pycharm \
+  rstudio \
+  slack \
+  spotify \
+  steam \
+  the-unarchiver \
+  transmission \
+  tuxguitar \
+  visual-studio-code \
+  vlc \
+  webtorrent \
+  xquartz \
+  zoomus
 
 # If `echo $BASH_VERSION` does not show the new version, do the following:
 ## sudo sh -c "echo '/usr/local/bin/bash' >> /etc/shells"
@@ -131,14 +134,14 @@ brew cask install \
 # Log out and log in again
 
 # Hyper terminal configuration
-cp ~/github/utilities/macOS/dotfiles/.hyper.js ~
+ln -s ~/github/utilities/macOS/dotfiles/.hyper.js ~/.hyper.js
 
 # Configure Vim and its plugin manager
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.vim/colors
-cp ~/github/utilities/Vim/delek-nobold.vim ~/.vim/colors
-cp ~/github/utilities/Vim/.vimrc ~
+ln -s ~/github/utilities/Vim/delek-nobold.vim ~/.vim/colors/delek-nobold.vim
+ln -s ~/github/utilities/Vim/.vimrc ~/.vimrc
 
 # Configure Git and enable commit signing
 git config --global user.name 'Sam Waterbury'
@@ -160,9 +163,13 @@ git config --global user.email 'samwaterbury1@gmail.com'
 # Command line tools for macOS
 sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"
 
+# Effectively replace the default system Python with Python 3
+ln -s /usr/local/bin/python3 /usr/local/bin/python
+ln -s /usr/local/bin/pip3 /usr/local/bin/pip
+
 # Move PIP configuration file
 mkdir -p ~/.config/pip
-cp ~/github/utilities/Python/pip.conf ~/.config/pip
+ln -s ~/github/utilities/Python/pip.conf ~/.config/pip/pip.conf
 
 # conda-forge is a vital package channel for Anaconda
 conda config --add channels conda-forge
@@ -185,8 +192,7 @@ mkdir -p $(brew --prefix zathura)/lib/zathura
 ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib \
     $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
 mkdir -p ~/.config/zathura
-echo "set selection-clipboard clipboard" >> ~/.config/zathura/zathurarc
-echo "set adjust-open width" >> ~/.config/zathura/zathurarc
+ln -s ~/github/utilities/macOS/dotfiles/zathurarc ~/.config/zathura/zathurarc
 
 # Install NPM packages
 npm install --global vmd # Favorite way to open markdown files
@@ -201,7 +207,7 @@ npm install --global dark-mode-cli # Change macOS system theme from terminal
 # - Keynote
 # - Shazam
 # - Dark Mode for Safari
-# - Ka-Block!
+# - AdGuard for Safari
 # - PiPifier - PiP for nearly every video
 # - Capo 3
 

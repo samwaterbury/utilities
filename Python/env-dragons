@@ -3,82 +3,47 @@
 # Creates the Python env I use for training the terminator (and other tasks).
 
 set -e
-VIRTUAL_ENV_DIR=~/virtualenv
 
-# Install with conda
-if [ "$1" = "--conda" ]; then
+# Update conda itself
+conda update --yes --name base --channel defaults conda
 
-    # Setup
-    . /usr/local/miniconda3/etc/profile.d/conda.sh
-    conda create --yes --name dragons python pip
-    conda activate dragons
-
-    # Packages
-    conda install --yes \
-        'python-language-server[all]' \
-        bokeh plotly \
-        catboost \
-        flake8 \
-        ipython \
-        jupyterlab \
-        keras \
-        lightgbm \
-        matplotlib \
-        nltk \
-        numpy \
-        pandas \
-        pep8 \
-        pytest \
-        pywavelets \
-        scikit-learn \
-        scipy \
-        seaborn \
-        spacy \
-        statsmodels \
-        tensorflow \
-        tqdm \
-        virtualenv \
-        xgboost
-
-    # Finish
-    conda deactivate
-
-# Install with PIP
-elif [ "$1" = "--virtualenv" ]; then
-
-    # Setup
-    mkdir -p $VIRTUAL_ENV_DIR
-    cd $VIRTUAL_ENV_DIR
-    virtualenv dragons
-    . dragons/bin/activate
-
-    # Packages
-    pip3 install \
-        'python-language-server[all]' \
-        bokeh plotly \
-        catboost \
-        flake8 \
-        ipython \
-        jupyterlab \
-        lightgbm \
-        matplotlib \
-        nltk \
-        numpy \
-        pandas \
-        pep8 \
-        pytest \
-        pywavelets \
-        scikit-learn \
-        scipy \
-        seaborn \
-        spacy \
-        statsmodels \
-        tensorflow \
-        tqdm \
-        virtualenv \
-        xgboost
-
+# Miniconda needs to be initialized
+if [ $(echo $PATH | grep /usr/local/sbin) ]; then
+    . /usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh
 else
-    echo "Specify the environment manager to use with --virtualenv or --conda."
-    exit 1
+    . /usr/local/miniconda3/etc/profile.d/conda.sh
 fi
+
+# Create the environment
+conda create --yes --name dragons python pip
+conda activate dragons
+
+# Packages
+conda install --yes \
+    'python-language-server[all]' \
+    bokeh \
+    catboost \
+    dask \
+    ipykernel \
+    ipython \
+    lightgbm \
+    matplotlib \
+    numpy \
+    pandas \
+    plotly \
+    pytest \
+    scikit-learn \
+    scipy \
+    seaborn \
+    spacy \
+    statsmodels \
+    tensorflow \
+    tensorflow-probability \
+    tqdm \
+    xgboost
+
+# Setup Jupyter environment
+ipython kernel install --user --name dragons
+
+# Finish
+conda deactivate

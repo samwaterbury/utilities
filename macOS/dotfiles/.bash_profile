@@ -16,11 +16,10 @@ eval "$(thefuck --alias)"
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
 alias wd="cd $HOME/Documents/working-directory"
 alias projects="cd $HOME/github"
-alias courses="cd $HOME/Documents/Courses"
-alias ~="cd ~"  # The extent of my laziness knows no bounds
+alias ~="cd $HOME"  # The extent of my laziness knows no bounds
 
 # SSH server aliases
-. ~/.ssh_aliases
+. ~/.bash_secrets
 
 # Exclude blank lines from bash history
 export HISTCONTROL=ignorespace
@@ -40,9 +39,6 @@ export LSCOLORS=Exfxcxdxbxegedabagacad # BOLD DIRECTORIES
 # export PS1="\h:\W \u\$ " # DEFAULT
 export PS1="\[\e[1;32m\]\u@macOS\[\e[m\]:\[\e[1;34m\]\W\[\e[m\]\$ " # GREEN-BLUE
 
-# Miniconda
-. /usr/local/miniconda3/etc/profile.d/conda.sh
-
 # Install Homebrew casks to ~/Applications instead of /Applications
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
@@ -54,3 +50,10 @@ export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Make local sbin available for Homebrew packages requiring sudo
 export PATH="/usr/local/sbin:$PATH"
+
+# Miniconda needs to be initialized
+if [ $(echo $PATH | grep /usr/local/sbin) ]; then
+    . /usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh
+else
+    . /usr/local/miniconda3/etc/profile.d/conda.sh
+fi

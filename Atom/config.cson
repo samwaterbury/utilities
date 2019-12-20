@@ -13,7 +13,9 @@
     fontSize: 12
     scrollPastEnd: true
     showIndentGuide: true
-    tabLength: 4
+    tabType: "soft"
+  "exception-reporting":
+    userId: "c1a2a502-8ca0-48a9-9c46-4d9c5a31c8e9"
   "ide-python":
     python: "/usr/local/bin/python"
   minimap:
@@ -22,5 +24,8 @@
       cursorlineDecorationsZIndex: 0
   "python-black":
     fmtOnSave: false
+    lineLength: 79
+  "split-diff":
+    ignoreWhitespace: true
   welcome:
     showOnStartup: false
