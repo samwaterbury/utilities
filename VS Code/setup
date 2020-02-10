@@ -9,14 +9,20 @@ pip3 install \
 # Install extensions
 code \
     --install-extension christian-kohler.path-intellisense \
+    --install-extension ms-azuretools.vscode-docker \
     --install-extension ms-python.python \
     --install-extension ms-vscode.cpptools \
     --install-extension naumovs.color-highlight \
-    --install-extension peterjausovec.vscode-docker \
     --install-extension sdras.night-owl \
     --install-extension tyriar.sort-lines
 
 # Import settings
-mkdir -p ~/.atom
-cp ~/github/utilities/VS\ Code/settings.json \
-    ~/Library/Application\ Support/Code/User/
+mkdir -p ~/Library/Application\ Support/Code/User
+if [ -L ~/Library/Application\ Support/Code/User/settings.json ]; then
+    rm ~/Library/Application\ Support/Code/User/settings.json
+elif [ -e ~/Library/Application\ Support/Code/User/settings.json ]; then
+    mv ~/Library/Application\ Support/Code/User/settings.json \
+        ~/Library/Application\ Support/Code/User/settings.json.bak
+fi
+ln -s ~/github/utilities/VS\ Code/settings.json \
+    ~/Library/Application\ Support/Code/User/settings.json

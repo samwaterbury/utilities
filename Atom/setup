@@ -9,26 +9,31 @@ pip3 install \
 
 # Install plugins
 apm install \
-  atom-ide-debugger-python \
-  atom-ide-ui \
-  atom-language-r \
-  file-icons \
-  git-history \
-  git-time-machine \
-  ide-python \
-  language-docker \
-  language-jenkinsfile \
-  language-julia \
-  language-latex \
-  language-markdown \
-  language-scala \
-  minimap \
-  minimap-cursorline \
-  pigments \
-  python-indent \
-  sort-lines \
-  split-diff
+    atom-ide-debugger-python \
+    atom-ide-ui \
+    atom-language-r \
+    file-icons \
+    git-history \
+    git-time-machine \
+    ide-python \
+    language-docker \
+    language-jenkinsfile \
+    language-julia \
+    language-latex \
+    language-markdown \
+    language-scala \
+    minimap \
+    minimap-cursorline \
+    pigments \
+    python-indent \
+    sort-lines \
+    split-diff
 
 # Import settings
 mkdir -p ~/.atom
+if [ -L ~/.atom/config.cson ]; then
+    rm ~/.atom/config.cson
+elif [ -e ~/.atom/config.cson ]; then
+    mv ~/.atom/config.cson ~/.atom/config.cson.bak
+fi
 ln -s ~/github/utilities/Atom/config.cson ~/.atom/config.cson

@@ -1,22 +1,33 @@
 {
-    "editor.multiCursorModifier": "ctrlCmd",
+    "[python]": {
+        "editor.formatOnPaste": false
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
     "editor.formatOnPaste": true,
-    "workbench.colorTheme": "Night Owl",
-    "workbench.statusBar.feedback.visible": false,
-    "window.restoreWindows": "none",
-    "terminal.external.osxExec": "Hyper.app",
-    "terminal.integrated.cursorBlinking": true,
-    "workbench.startupEditor": "none",
-    "workbench.statusBar.visible": true,
-    "workbench.activityBar.visible": true,
+    "editor.multiCursorModifier": "ctrlCmd",
     "editor.rulers": [
         80,
+        88,
         120
     ],
-    "python.linting.enabled": true,
-    "python.linting.lintOnSave": true,
-    "python.linting.pylintEnabled": true,
-    "python.linting.pep8Enabled": true,
-    "python.linting.flake8Enabled": true,
-    "window.menuBarVisibility": "toggle"
+    "explorer.confirmDragAndDrop": false,
+    "files.hotExit": "off",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "git.enableStatusBarSync": false,
+    "python.dataScience.askForKernelRestart": false,
+    "python.formatting.provider": "black",
+    "python.linting.pydocstyleEnabled": true,
+    "python.testing.autoTestDiscoverOnSaveEnabled": false,
+    "terminal.external.osxExec": "Hyper.app",
+    "terminal.integrated.cursorBlinking": true,
+    "window.restoreWindows": "none",
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "Night Owl",
+    "workbench.startupEditor": "none",
+    "workbench.statusBar.visible": true,
+    "workbench.tree.indent": 24
 }

@@ -77,7 +77,6 @@ brew install \
   r \
   readline \
   ruby \
-  rust \
   sbt \
   scala \
   speedtest-cli \
@@ -96,7 +95,6 @@ brew install \
 # Install brew casks
 brew cask install \
   4k-video-downloader \
-  alacritty \
   atom \
   balenaetcher \
   brooklyn \

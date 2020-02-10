@@ -33,7 +33,6 @@ export GIT_EDITOR="$VISUAL"
 export CLICOLOR=1
 # export LSCOLORS=exfxcxdxbxegedabagacad # DEFAULT
 export LSCOLORS=Exfxcxdxbxegedabagacad # BOLD DIRECTORIES
-# export LSCOLORS=Gxfxcxdxbxegedabagacad # CUSTOM
 
 # Enable command prompt colors
 # export PS1="\h:\W \u\$ " # DEFAULT
@@ -50,6 +49,12 @@ export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Make local sbin available for Homebrew packages requiring sudo
 export PATH="/usr/local/sbin:$PATH"
+
+# Rust language
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Bash completion for git
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 # Miniconda needs to be initialized
 if [ $(echo $PATH | grep /usr/local/sbin) ]; then
