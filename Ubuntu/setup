@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+#
+# Describes my steps to get a fresh Ubuntu 20.04 installation up and running.
+#
+# Usage: ./setup
+
+#################
+# Initial Setup #
+#################
+
+# SSH setup
+apt-get install --yes openssh-client openssh-server \
+    && [ ! -f "$HOME/.ssh/id_rsa" ] \
+    && ssh-keygen -b 4096 -t rsa -f "$HOME/.ssh/id_rsa" -q -N ""
+
+# Git setup
+apt-get install --yes git \
+    && git config --global user.name "Sam Waterbury" \
+    && git config --global user.email "samwaterbury1@gmail.com" \
+    && git config --global commit.gpgsign true
+# (Add private SSH key and GPG key to GitHub account)
+# GPG Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
+
+# Make the directory I keep repositories in and clone this repo
+mkdir -p "$HOME/github" \
+    && [ ! -d "$HOME/github/utilities" ] \
+    && git clone "git@github.com:samwaterbury/utilities.git" \
+        "$HOME/github/utilities"
+
+# Terminal configuration
+[ ! -f "$HOME/.bashrc" ] \
+    || mv "$HOME/.bashrc" "$HOME/.bashrc.bak" \
+    && cp "$HOME/github/utilities/Ubuntu/dotfiles/.bashrc" "$HOME/.bashrc"
+
+############
+# Software #
+############
+
+# Start adding packages
+apt-get install --yes \
+    cmake \
+    curl \
+    colordiff \
+    default-jre \
+    default-jdk \
+    docker-compose \
+    firefox \
+    fonts-firacode \
+    gdebi \
+    gnome-tweaks \
+    gparted \
+    net-tools \
+    npm \
+    ppa-purge \
+    python3 python3-pip \
+    snapd \
+    software-properties-common \
+    speedtest-cli \
+    steam \
+    thefuck \
+    thunderbird \
+    transmission \
+    tree \
+    vim \
+    virtualbox \
+    vlc
+
+# Vim
+curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    && mkdir -p "$HOME/.vim/colors" \
+    && cp "$HOME/github/utilities/Vim/delek-nobold.vim" \
+        "$HOME/.vim/colors/delek-nobold.vim" \
+    && cp "$HOME/github/utilities/Vim/.vimrc" "$HOME/.vimrc"
+
+# Snap packages
+snap install spotify discord
+snap install --classic code
+
+# Rust language
+curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs \
+    | bash -s -- -y --no-modify-path
+
+# Miniconda
+curl -s https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    | sh
+
+# NPM packages
+npm install --global vmd
+
+# Configure Docker to run without sudo
+curl -fsSL https://get.docker.com/rootless | sh \
+    && systemctl --user start docker \
+    && loginctl enable-linger $(whoami)

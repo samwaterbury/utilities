@@ -2,161 +2,149 @@
 #
 # Describes my steps to get a fresh macOS installation up and running.
 #
-# This file is not guaranteed to run straight through without failure. Rather,
-# the lines should be run individually to catch any problems that arise.
+# Before running this script, make sure that Xcode is installed.
 #
-# There are also some steps that involve performing actions outside of the
-# terminal. For these, the accompanying commands are commented-out so that
-# the steps are not partially completed if this script is executed. The lines
-# containing these commands start with ## (instead of #) for clarity.
+# Usage: ./setup
 
-###################
-# Pre-Setup Stuff #
-###################
+#################
+# Initial Setup #
+#################
 
-# Install Xcode and then run:
+# TODO: check if Xcode CLT are installed and if not, install them
+set -e # Until this is working, exit when any command doesn't run correctly
 ## xcode-select --install
-# Switch between the two with:
-## sudo xcode-select --switch /Library/Developer/CommandLineTools
-## sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-# Sign the license:
 ## sudo xcodebuild -license
-# Lastly, install the SDK header files:
 ## sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.*.pkg -target /
 
-# Make some directories I always use and clone this repo
-ssh-keygen
-# Add this public key to GitHub
-mkdir -p ~/github
-mkdir -p ~/Documents/working-directory
-git clone git@github.com:samwaterbury/utilities.git ~/github/utilities
+# Switch between the tools provided by Xcode and CLT with:
+## sudo xcode-select --switch /Library/Developer/CommandLineTools
+## sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+
+# SSH setup
+[ ! -f "$HOME/.ssh/id_rsa" ] \
+    && ssh-keygen -b 4096 -t rsa -f "$HOME/.ssh/id_rsa" -q -N ""
+
+# Git setup
+git config --global user.name "Sam Waterbury"
+git config --global user.email "samwaterbury1@gmail.com"
+git config --global commit.gpgsign true
+# (Add private SSH key and GPG key to GitHub account)
+# GPG Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
+
+# Make the directory I keep repositories in and clone this repo
+mkdir -p "$HOME/github" \
+    && [ ! -d "$HOME/github/utilities" ] \
+    && git clone "git@github.com:samwaterbury/utilities.git" \
+        "$HOME/github/utilities"
 
 # Terminal configuration
-ln -s ~/github/utilities/macOS/dotfiles/.bash_profile ~/.bash_profile
-ln -s ~/github/utilities/macOS/dotfiles/.inputrc ~/.inputrc
-if not [ -e ~/github/utilities/macOS/dotfiles/.bash_secrets ]; then
-  cp ~/github/utilities/macOS/dotfiles/.bash_secrets ~
-fi
-touch ~/.hushlogin
+touch "$HOME/.hushlogin"
+[ ! -f "$HOME/.bash_profile" ] \
+    || mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak" \
+    && cp "$HOME/github/utilities/macOS/dotfiles/.bash_profile" "$HOME/.bash_profile"
+[ ! -f "$HOME/.inputrc" ] \
+    || mv "$HOME/.inputrc" "$HOME/.inputrc.bak" \
+    && cp "$HOME/github/utilities/macOS/dotfiles/.inputrc" "$HOME/.inputrc"
 
-# ----------------- #
-# Homebrew Packages #
-# ----------------- #
+############
+# Software #
+############
 
 # Install Homebrew package manager
-/usr/bin/ruby -e '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'
-brew doctor
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
-
-# To install casks to the user Applications folder instead of for all users, do:
-## echo "export HOMEBREW_CASK_OPTS='--appdir=~/Applications'" >> ~/.bash_profile
 
 # Brew taps
 brew tap homebrew/cask-versions
 
 # Install brew packages
 brew install \
-  bash \
-  bash-completion \
-  cmake \
-  colordiff \
-  ddgr \
-  gcc \
-  git \
-  gpg \
-  hdf5 \
-  jq \
-  libgit2 \
-  libomp \
-  neofetch \
-  node \
-  openssl \
-  pandoc \
-  pinentry-mac \
-  python \
-  r \
-  readline \
-  ruby \
-  sbt \
-  scala \
-  speedtest-cli \
-  sqlite3 \
-  thefuck \
-  tmux \
-  trash \
-  tree \
-  unar \
-  vim \
-  watch \
-  wget \
-  xz \
-  zlib
+    bash \
+    bash-completion \
+    cmake \
+    colordiff \
+    ddgr \
+    gcc \
+    git \
+    github/gh/gh \
+    gpg \
+    hdf5 \
+    jq \
+    libgit2 \
+    libomp \
+    neofetch \
+    node \
+    openssl \
+    pandoc \
+    pinentry-mac \
+    python \
+    r \
+    readline \
+    ruby \
+    sbt \
+    scala \
+    speedtest-cli \
+    sqlite3 \
+    thefuck \
+    tmux \
+    trash \
+    tree \
+    unar \
+    vim \
+    watch \
+    wget \
+    xz \
+    zlib
 
 # Install brew casks
 brew cask install \
-  4k-video-downloader \
-  atom \
-  balenaetcher \
-  brooklyn \
-  discord \
-  docker \
-  firefox \
-  github \
-  google-chrome \
-  homebrew/cask-fonts/font-fira-code \
-  hyper \
-  ipvanish-vpn \
-  java \
-  julia \
-  macpass \
-  mactex texpad \
-  mark-text \
-  miniconda \
-  pycharm \
-  rstudio \
-  slack \
-  spotify \
-  steam \
-  the-unarchiver \
-  transmission \
-  tuxguitar \
-  visual-studio-code \
-  vlc \
-  webtorrent \
-  xquartz \
-  zoomus
-
-# If `echo $BASH_VERSION` does not show the new version, do the following:
-## sudo sh -c "echo '/usr/local/bin/bash' >> /etc/shells"
-## chpass -s /usr/local/bin/bash
-# Log out and log in again
+    4k-video-downloader \
+    atom \
+    balenaetcher \
+    brooklyn \
+    discord \
+    docker \
+    firefox \
+    firefox-developer-edition \
+    google-chrome \
+    homebrew/cask-fonts/font-fira-code \
+    hyper \
+    ipvanish-vpn \
+    java \
+    julia \
+    macpass \
+    mactex \
+    mark-text \
+    miniconda \
+    pycharm \
+    rstudio \
+    slack \
+    spotify \
+    steam \
+    texpad \
+    the-unarchiver \
+    transmission \
+    tuxguitar \
+    visual-studio-code \
+    vlc \
+    webtorrent \
+    xquartz \
+    zoomus
 
 # Hyper terminal configuration
-ln -s ~/github/utilities/macOS/dotfiles/.hyper.js ~/.hyper.js
+[ ! -f "$HOME/.hyper.js" ] \
+    || mv "$HOME/.hyper.js" "$HOME/.hyper.js.bak" \
+    && cp "$HOME/github/utilities/macOS/dotfiles/.hyper.js" "$HOME/.hyper.js"
 
 # Configure Vim and its plugin manager
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir -p ~/.vim/colors
-ln -s ~/github/utilities/Vim/delek-nobold.vim ~/.vim/colors/delek-nobold.vim
-ln -s ~/github/utilities/Vim/.vimrc ~/.vimrc
-
-# Configure Git and enable commit signing
-git config --global user.name 'Sam Waterbury'
-git config --global user.email 'samwaterbury1@gmail.com'
-# Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
-## mkdir -p ~/.gnupg
-## echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
-## killall gpg-agent
-## gpg --full-generate-key
-# (RSA and RSA, 4096 bits)
-## gpg --list-secret-keys --keyid-format LONG
-# Let <*> denote the ID from above at: "...sec   rsa4096/<*> ..."
-## gpg --armor --export <*>
-# (Add GPG key to GitHub)
-## git config --global user.signingkey <*>
-## git config --global commit.gpgsign true
-## git config --global gpg.program gpg
+mkdir -p "$HOME/.vim/colors" \
+    && cp "$HOME/github/utilities/Vim/delek-nobold.vim" \
+        "$HOME/.vim/colors/delek-nobold.vim"
+[ ! -f "$HOME/.vimrc" ] \
+    || mv "$HOME/.vimrc" "$HOME/.vimrc.bak" \
+    && cp "$HOME/github/utilities/Vim/.vimrc" "$HOME/.vimrc"
 
 # Command line tools for macOS
 sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"
@@ -166,53 +154,32 @@ ln -s /usr/local/bin/python3 /usr/local/bin/python
 ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 
 # Move PIP configuration file
-mkdir -p ~/.config/pip
-ln -s ~/github/utilities/Python/pip.conf ~/.config/pip/pip.conf
-
-# conda-forge is a vital package channel for Anaconda
-conda config --add channels conda-forge
-
-# Gradle needed the Java cask to be installed first
-brew install gradle
+mkdir -p "$HOME/.config/pip" \
+    && ln -s "$HOME/github/utilities/Python/pip.conf" "$HOME/.config/pip/pip.conf"
 
 # Atom configuration
-bash ~/github/utilities/Atom/setup
+sh "$HOME/github/utilities/Atom/setup"
 
 # VS Code configuration
-bash ~/github/utilities/VS\ Code/setup
-
-# A useful editor for working with absoutely massive files
-sudo sh ~/github/utilities/macOS/xi-build
-
-# Lightweight PDF viewer with support for inverting colors!!!
-brew install zegervdv/zathura/zathura zegervdv/zathura/zathura-pdf-poppler
-mkdir -p $(brew --prefix zathura)/lib/zathura
-ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib \
-    $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
-mkdir -p ~/.config/zathura
-ln -s ~/github/utilities/macOS/dotfiles/zathurarc ~/.config/zathura/zathurarc
+sh "$HOME/github/utilities/VS Code/setup"
 
 # Install NPM packages
-npm install --global vmd # Favorite way to open markdown files
-npm install --global dark-mode-cli # Change macOS system theme from terminal
+npm install --global \
+    dark-mode-cli \
+    markdown-toc \
+    vmd
 
 # Sometimes the default system Gem installation can't find Xcode's libxml2:
 ## sudo gem install libxml-ruby -- --with-xml2-include=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 --use-system-libraries
 ## sudo gem update
 
-# Install from the App Store
+################
+# Manual Stuff #
+################
+
+# Install from the App Store:
 # - Pages
 # - Keynote
 # - Shazam
-# - Dark Mode for Safari
 # - AdGuard for Safari
 # - PiPifier - PiP for nearly every video
-# - Capo 3
-
-##########################
-# Settings Customization #
-##########################
-
-# Go to Terminal -> Preferences -> Profiles and import the following profile:
-# ~/github/utilities/macOS/One Dark.terminal
-# Then set it as the default.

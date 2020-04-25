@@ -1,0 +1,16 @@
+name: vision
+channels:
+  - defaults
+dependencies:
+  - black
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - opencv
+  - pandas
+  - pillow
+  - python
+  - python-language-server
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - tqdm

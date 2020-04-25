@@ -1,28 +1,38 @@
 #!/usr/bin/env bash
 #
 # Configures the extensions and settings typically I use with VS Code.
-
-# Install extension dependencies
-pip3 install \
-    'python-language-server[all]' # Required for the Python extension
+#
+# Usage: ./setup
 
 # Install extensions
 code \
+    --install-extension adpyke.vscode-sql-formatter \
     --install-extension christian-kohler.path-intellisense \
+    --install-extension michelemelluso.code-beautifier \
+    --install-extension mikestead.dotenv \
     --install-extension ms-azuretools.vscode-docker \
     --install-extension ms-python.python \
+    --install-extension ms-vscode-remote.vscode-remote-extensionpack \
     --install-extension ms-vscode.cpptools \
+    --install-extension ms-vscode.cpptools \
+    --install-extension ms-vscode.powershell \
     --install-extension naumovs.color-highlight \
+    --install-extension njpwerner.autodocstring \
+    --install-extension samuelcolvin.jinjahtml \
     --install-extension sdras.night-owl \
     --install-extension tyriar.sort-lines
 
-# Import settings
-mkdir -p ~/Library/Application\ Support/Code/User
-if [ -L ~/Library/Application\ Support/Code/User/settings.json ]; then
-    rm ~/Library/Application\ Support/Code/User/settings.json
-elif [ -e ~/Library/Application\ Support/Code/User/settings.json ]; then
-    mv ~/Library/Application\ Support/Code/User/settings.json \
-        ~/Library/Application\ Support/Code/User/settings.json.bak
-fi
-ln -s ~/github/utilities/VS\ Code/settings.json \
-    ~/Library/Application\ Support/Code/User/settings.json
+# Copy settings over
+mkdir -p "$HOME/Library/Application Support/Code/User"
+
+[ ! -f "$HOME/Library/Application Support/Code/User/settings.json" ] \
+    || mv "$HOME/Library/Application Support/Code/User/settings.json" \
+        "$HOME/Library/Application Support/Code/User/settings.json.bak" \
+    && cp "$HOME/github/utilities/VS Code/settings.json" \
+        "$HOME/Library/Application Support/Code/User/settings.json"
+
+[ ! -f "$HOME/Library/Application Support/Code/User/keybindings.json" ] \
+    || mv "$HOME/Library/Application Support/Code/User/keybindings.json" \
+        "$HOME/Library/Application Support/Code/User/keybindings.json.bak" \
+    && cp "$HOME/github/utilities/VS Code/keybindings.json" \
+        "$HOME/Library/Application Support/Code/User/keybindings.json"

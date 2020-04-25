@@ -1,0 +1,13 @@
+name: torch
+channels:
+  - defaults
+dependencies:
+  - black
+  - jupyterlab
+  - numpy
+  - pandas
+  - python
+  - python-language-server
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - tqdm

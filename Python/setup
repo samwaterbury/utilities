@@ -1,21 +1,25 @@
 #!/usr/bin/env bash
 #
-# Installs the PIP packages I typically use globally.
+# Configures my system Python installation.
+#
+# Usage: ./setup
 
-set -e
-
-pip3 install \
-    'python-language-server[all]' \
+pip3 install --upgrade \
+    black \
     ipython \
-    jupyterlab \
     kaggle \
     mypy \
     numpy \
     pandas \
     proselint \
-    pytest \
-    scipy \
+    pylint \
+    python-language-server[all] \
     tqdm
 
-mkdir -p ~/.config/mypy
-cp ~/github/utilities/Python/config ~/.config/mypy
+# Configuration for pip
+mkdir -p "$HOME/.pip/pip.conf" \
+    && cp "$HOME/github/utilities/Python/pip.conf" "$HOME/.pip/pip.conf"
+
+# Configuration for MyPy
+mkdir -p "$HOME/.config/mypy" \
+    && cp "$HOME/github/utilities/Python/config" "$HOME/.config/mypy/config"

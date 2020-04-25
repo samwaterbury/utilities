@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 #
 # Configures the packages and settings typically I use with Atom.
-
-# Install plugin dependencies
-pip3 install \
-    'python-language-server[all]' \
-    IPython
+#
+# Usage: ./setup
 
 # Install plugins
 apm install \
@@ -30,10 +27,7 @@ apm install \
     split-diff
 
 # Import settings
-mkdir -p ~/.atom
-if [ -L ~/.atom/config.cson ]; then
-    rm ~/.atom/config.cson
-elif [ -e ~/.atom/config.cson ]; then
-    mv ~/.atom/config.cson ~/.atom/config.cson.bak
-fi
-ln -s ~/github/utilities/Atom/config.cson ~/.atom/config.cson
+mkdir -p "$HOME/.atom" \
+    && [ ! -f "$HOME/.atom/config.cson" ] \
+    || mv "$HOME/.atom/config.cson" "$HOME/.atom/config.cson.bak" \
+    && cp "$HOME/github/utilities/Atom/config.cson" "$HOME/.atom/config.cson"

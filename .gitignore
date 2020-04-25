@@ -1,9 +1,7 @@
+# System files
 .DS_Store
-__pycache__/
 
-# Generated when installing Atom packages
+# Generated files
+__pycache__/
 node_modules/
 package-lock.json
-
-# Keep the file, but ignore any changes to it
-.bash_secrets
