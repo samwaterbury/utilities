@@ -1,6 +1,9 @@
+#!/usr/bin/env bash
+
 # Command aliases
 alias ll="ls -lhAG"
 alias la="ls -A"
+alias vim="nvim"
 alias diff="colordiff"
 alias gs="git status"
 alias top="top -o mem"
@@ -20,7 +23,7 @@ alias ~="cd $HOME"  # The extent of my laziness knows no bounds
 export HISTCONTROL=ignorespace
 
 # Set default editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 

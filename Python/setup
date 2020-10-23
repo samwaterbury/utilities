@@ -4,20 +4,21 @@
 #
 # Usage: ./setup
 
-pip3 install --upgrade \
-    black \
-    ipython \
-    kaggle \
-    mypy \
-    numpy \
-    pandas \
-    proselint \
-    pylint \
-    python-language-server[all] \
-    tqdm
+pip3 freeze | xargs pip3 uninstall --yes \
+    && pip3 install --upgrade \
+        black \
+        ipython \
+        kaggle \
+        mypy \
+        numpy \
+        pandas \
+        proselint \
+        pylint \
+        python-language-server[all] \
+        tqdm
 
 # Configuration for pip
-mkdir -p "$HOME/.pip/pip.conf" \
+mkdir -p "$HOME/.pip" \
     && cp "$HOME/github/utilities/Python/pip.conf" "$HOME/.pip/pip.conf"
 
 # Configuration for MyPy

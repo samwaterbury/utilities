@@ -1,0 +1,13 @@
+name: tf
+channels:
+  - defaults
+dependencies:
+  - black
+  - jupyterlab
+  - numpy
+  - pandas
+  - python
+  - python-language-server
+  - tensorflow-gpu
+  - tensorflow-probability
+  - tqdm

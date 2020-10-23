@@ -18,6 +18,7 @@ code \
     --install-extension ms-vscode.powershell \
     --install-extension naumovs.color-highlight \
     --install-extension njpwerner.autodocstring \
+    --install-extension rust-lang.rust \
     --install-extension samuelcolvin.jinjahtml \
     --install-extension sdras.night-owl \
     --install-extension tyriar.sort-lines
