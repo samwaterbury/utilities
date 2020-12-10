@@ -9,6 +9,7 @@ dependencies:
   - opencv
   - pandas
   - pillow
+  - pylint
   - python
   - python-language-server
   - pytorch::pytorch

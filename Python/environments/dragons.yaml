@@ -1,14 +1,24 @@
-name: tf
+name: dragons
 channels:
   - defaults
 dependencies:
   - black
   - jupyterlab
+  - lightgbm
+  - matplotlib
   - numpy
   - pandas
+  - plotly
+  - plotly::python-kaleido
+  - pyarrow
   - pylint
   - python
   - python-language-server
+  - pytorch::pytorch
+  - pytorch::torchtext
+  - pytorch::torchvision
+  - scipy
   - tensorflow
   - tensorflow-probability
   - tqdm
+  - xgboost

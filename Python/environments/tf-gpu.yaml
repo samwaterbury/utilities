@@ -6,6 +6,7 @@ dependencies:
   - jupyterlab
   - numpy
   - pandas
+  - pylint
   - python
   - python-language-server
   - tensorflow-gpu
