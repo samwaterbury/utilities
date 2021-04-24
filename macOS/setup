@@ -85,6 +85,7 @@ brew install \
     scala \
     speedtest-cli \
     sqlite3 \
+    terraform \
     thefuck \
     tmux \
     trash \
@@ -116,7 +117,6 @@ brew cask install \
     mactex \
     mark-text \
     miniconda \
-    pycharm \
     rstudio \
     slack \
     spotify \
@@ -162,6 +162,9 @@ sh "$HOME/github/utilities/Atom/setup"
 
 # VS Code configuration
 sh "$HOME/github/utilities/VS Code/setup"
+
+# Terraform autocomplete
+terraform -install-autocomplete
 
 # Install NPM packages
 npm install --global \

@@ -9,6 +9,7 @@ alias gs="git status"
 alias top="top -o mem"
 alias less="less -r"
 alias weather="curl -s wttr.in | head -38"
+alias restart-gui="killall -KILL Dock"
 eval "$(thefuck --alias)"
 
 # Path aliases

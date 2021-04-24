@@ -36,7 +36,7 @@
   "python.formatting.provider": "black",
   "python.linting.pydocstyleEnabled": true,
   "python.linting.pylintUseMinimalCheckers": false,
-  "python.showStartPage": true,
+  "python.showStartPage": false,
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "rust-client.rustupPath": "~/.cargo/bin/rustup",
   "terminal.external.osxExec": "Hyper.app",
