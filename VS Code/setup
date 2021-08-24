@@ -7,33 +7,54 @@
 # Install extensions
 code \
     --install-extension adpyke.vscode-sql-formatter \
+    --install-extension be5invis.toml \
+    --install-extension brittanychiang.halcyon-vscode \
     --install-extension christian-kohler.path-intellisense \
+    --install-extension dotjoshjohnson.xml \
+    --install-extension editorconfig.editorconfig \
+    --install-extension esbenp.prettier-vscode \
+    --install-extension foxundermoon.shell-format \
+    --install-extension github.github-vscode-theme \
+    --install-extension hashicorp.terraform \
+    --install-extension mechatroner.rainbow-csv \
+    --install-extension mermade.openapi-lint \
     --install-extension michelemelluso.code-beautifier \
     --install-extension mikestead.dotenv \
     --install-extension ms-azuretools.vscode-docker \
+    --install-extension ms-dotnettools.csharp \
     --install-extension ms-python.python \
+    --install-extension ms-toolsai.jupyter \
     --install-extension ms-vscode-remote.vscode-remote-extensionpack \
-    --install-extension ms-vscode.cpptools \
+    --install-extension ms-vscode.cmake-tools \
     --install-extension ms-vscode.cpptools \
     --install-extension ms-vscode.powershell \
     --install-extension naumovs.color-highlight \
-    --install-extension njpwerner.autodocstring \
     --install-extension rust-lang.rust \
-    --install-extension samuelcolvin.jinjahtml \
+    --install-extension ryu1kn.partial-diff \
     --install-extension sdras.night-owl \
-    --install-extension tyriar.sort-lines
+    --install-extension simonsiefke.svg-preview \
+    --install-extension tyriar.sort-lines \
+    --install-extension waderyan.gitblame \
+    --install-extension yummygum.city-lights-icon-vsc \
+    --install-extension yummygum.city-lights-theme
 
 # Copy settings over
-mkdir -p "$HOME/Library/Application Support/Code/User"
+OPERATING_SYSTEM=$(uname)
 
-[ ! -f "$HOME/Library/Application Support/Code/User/settings.json" ] \
-    || mv "$HOME/Library/Application Support/Code/User/settings.json" \
-        "$HOME/Library/Application Support/Code/User/settings.json.bak" \
-    && cp "$HOME/github/utilities/VS Code/settings.json" \
-        "$HOME/Library/Application Support/Code/User/settings.json"
+if [ $OPERATING_SYSTEM == "Darwin" ]; then
+    SETTINGS_DIRECTORY="$HOME/Library/Application Support/Code/User"
+elif [ $OPERATING_SYSTEM == "Linux" ]; then
+    SETTINGS_DIRECTORY="$HOME/.config/Code/User"
+else
+    echo "Unknown operating system: ${OPERATING_SYSTEM}. Could not copy settings."
+fi
 
-[ ! -f "$HOME/Library/Application Support/Code/User/keybindings.json" ] \
-    || mv "$HOME/Library/Application Support/Code/User/keybindings.json" \
-        "$HOME/Library/Application Support/Code/User/keybindings.json.bak" \
-    && cp "$HOME/github/utilities/VS Code/keybindings.json" \
-        "$HOME/Library/Application Support/Code/User/keybindings.json"
+mkdir -p $SETTINGS_DIRECTORY
+
+[ ! -f "$SETTINGS_DIRECTORY/settings.json" ] \
+    || mv "$SETTINGS_DIRECTORY/settings.json" "$SETTINGS_DIRECTORY/settings.json.bak" \
+    && cp "$HOME/projects/utilities/VS Code/settings.json" "$SETTINGS_DIRECTORY/settings.json"
+
+[ ! -f "$SETTINGS_DIRECTORY/keybindings.json" ] \
+    || mv "$SETTINGS_DIRECTORY/keybindings.json" "$SETTINGS_DIRECTORY/keybindings.json.bak" \
+    && cp "$HOME/projects/utilities/VS Code/keybindings.json" "$SETTINGS_DIRECTORY/keybindings.json"
