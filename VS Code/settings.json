@@ -17,36 +17,55 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[python]": {
     "editor.formatOnPaste": false
   },
+  "[restructuredtext]": {
+    "editor.wordWrap": "on"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
   "diffEditor.ignoreTrimWhitespace": false,
+  "docker.showStartPage": false,
   "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnPaste": true,
   "editor.multiCursorModifier": "ctrlCmd",
-  "editor.rulers": [80, 88, 120],
+  "editor.rulers": [80, 88, 100],
   "explorer.confirmDragAndDrop": false,
   "files.hotExit": "off",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "git.enableStatusBarSync": false,
-  "python.dataScience.askForKernelRestart": false,
+  "jupyter.askForKernelRestart": false,
+  "jupyter.textOutputLimit": 100000,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "error",
+    "reportUndefinedVariable": "error"
+  },
   "python.formatting.provider": "black",
-  "python.linting.pydocstyleEnabled": true,
+  "python.linting.pylintEnabled": true,
   "python.linting.pylintUseMinimalCheckers": false,
-  "python.showStartPage": true,
-  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "redhat.telemetry.enabled": false,
   "rust-client.rustupPath": "~/.cargo/bin/rustup",
-  "terminal.external.osxExec": "Hyper.app",
+  "terminal.external.osxExec": "Alacritty.app",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.inheritEnv": false,
-  "terminal.integrated.shell.osx": "/usr/local/bin/bash",
   "window.restoreWindows": "none",
-  "window.zoomLevel": 0,
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Night Owl",
+  "workbench.colorTheme": "Visual Studio 2019 Light",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
   "workbench.startupEditor": "none",
   "workbench.statusBar.visible": true,
   "workbench.tree.indent": 24
