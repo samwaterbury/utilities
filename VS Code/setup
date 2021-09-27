@@ -8,11 +8,14 @@
 code \
     --install-extension adpyke.vscode-sql-formatter \
     --install-extension christian-kohler.path-intellisense \
+    --install-extension editorconfig.editorconfig \
     --install-extension michelemelluso.code-beautifier \
     --install-extension mikestead.dotenv \
     --install-extension ms-azuretools.vscode-docker \
+    --install-extension ms-dotnettools.csharp \
     --install-extension ms-python.python \
     --install-extension ms-vscode-remote.vscode-remote-extensionpack \
+    --install-extension ms-vscode.cmake-tools \
     --install-extension ms-vscode.cpptools \
     --install-extension ms-vscode.cpptools \
     --install-extension ms-vscode.powershell \
