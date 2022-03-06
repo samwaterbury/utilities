@@ -22,15 +22,13 @@ apt-get install --yes git \
 # GPG Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
 
 # Make the directory I keep repositories in and clone this repo
-mkdir -p "$HOME/github" \
-    && [ ! -d "$HOME/github/utilities" ] \
+mkdir -p "$HOME/Projects" \
+    && [ ! -d "$HOME/Projects/utilities" ] \
     && git clone "git@github.com:samwaterbury/utilities.git" \
-        "$HOME/github/utilities"
+        "$HOME/Projects/utilities"
 
 # Terminal configuration
-[ ! -f "$HOME/.bashrc" ] \
-    || mv "$HOME/.bashrc" "$HOME/.bashrc.bak" \
-    && cp "$HOME/github/utilities/Ubuntu/dotfiles/.bashrc" "$HOME/.bashrc"
+cp "$HOME/Projects/utilities/Ubuntu/dotfiles/.bashrc" "$HOME/.bashrc"
 
 ############
 # Software #
@@ -69,9 +67,9 @@ apt-get install --yes \
 curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && mkdir -p "$HOME/.vim/colors" \
-    && cp "$HOME/github/utilities/Vim/delek-nobold.vim" \
+    && cp "$HOME/Projects/utilities/Vim/delek-nobold.vim" \
         "$HOME/.vim/colors/delek-nobold.vim" \
-    && cp "$HOME/github/utilities/Vim/.vimrc" "$HOME/.vimrc"
+    && cp "$HOME/Projects/utilities/Vim/.vimrc" "$HOME/.vimrc"
 
 # Snap packages
 snap install spotify discord

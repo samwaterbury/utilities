@@ -7,36 +7,28 @@
 # Install extensions
 code \
     --install-extension adpyke.vscode-sql-formatter \
-    --install-extension be5invis.toml \
     --install-extension brittanychiang.halcyon-vscode \
     --install-extension christian-kohler.path-intellisense \
-    --install-extension dotjoshjohnson.xml \
     --install-extension editorconfig.editorconfig \
     --install-extension esbenp.prettier-vscode \
     --install-extension foxundermoon.shell-format \
     --install-extension github.github-vscode-theme \
     --install-extension hashicorp.terraform \
     --install-extension mechatroner.rainbow-csv \
-    --install-extension mermade.openapi-lint \
-    --install-extension michelemelluso.code-beautifier \
     --install-extension mikestead.dotenv \
     --install-extension ms-azuretools.vscode-docker \
-    --install-extension ms-dotnettools.csharp \
     --install-extension ms-python.python \
     --install-extension ms-toolsai.jupyter \
     --install-extension ms-vscode-remote.vscode-remote-extensionpack \
-    --install-extension ms-vscode.cmake-tools \
-    --install-extension ms-vscode.cpptools \
     --install-extension ms-vscode.powershell \
     --install-extension naumovs.color-highlight \
     --install-extension rust-lang.rust \
     --install-extension ryu1kn.partial-diff \
     --install-extension sdras.night-owl \
     --install-extension simonsiefke.svg-preview \
+    --install-extension tamasfe.even-better-toml \
     --install-extension tyriar.sort-lines \
-    --install-extension waderyan.gitblame \
-    --install-extension yummygum.city-lights-icon-vsc \
-    --install-extension yummygum.city-lights-theme
+    --install-extension waderyan.gitblame
 
 # Copy settings over
 OPERATING_SYSTEM=$(uname)
@@ -50,11 +42,5 @@ else
 fi
 
 mkdir -p $SETTINGS_DIRECTORY
-
-[ ! -f "$SETTINGS_DIRECTORY/settings.json" ] \
-    || mv "$SETTINGS_DIRECTORY/settings.json" "$SETTINGS_DIRECTORY/settings.json.bak" \
-    && cp "$HOME/projects/utilities/VS Code/settings.json" "$SETTINGS_DIRECTORY/settings.json"
-
-[ ! -f "$SETTINGS_DIRECTORY/keybindings.json" ] \
-    || mv "$SETTINGS_DIRECTORY/keybindings.json" "$SETTINGS_DIRECTORY/keybindings.json.bak" \
-    && cp "$HOME/projects/utilities/VS Code/keybindings.json" "$SETTINGS_DIRECTORY/keybindings.json"
+cp "$HOME/Projects/utilities/VS Code/settings.json" "$SETTINGS_DIRECTORY/settings.json"
+cp "$HOME/Projects/utilities/VS Code/keybindings.json" "$SETTINGS_DIRECTORY/keybindings.json"

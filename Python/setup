@@ -19,8 +19,8 @@ pip3 freeze | xargs pip3 uninstall --yes \
 
 # Configuration for pip
 mkdir -p "$HOME/.pip" \
-    && cp "$HOME/github/utilities/Python/pip.conf" "$HOME/.pip/pip.conf"
+    && cp "$HOME/Projects/utilities/Python/pip.conf" "$HOME/.pip/pip.conf"
 
 # Configuration for MyPy
 mkdir -p "$HOME/.config/mypy" \
-    && cp "$HOME/github/utilities/Python/config" "$HOME/.config/mypy/config"
+    && cp "$HOME/Projects/utilities/Python/config" "$HOME/.config/mypy/config"

@@ -7,13 +7,14 @@ alias vim="nvim"
 alias diff="colordiff"
 alias gs="git status"
 alias top="top -o mem"
+alias free="top -l 1 -s 0 | grep PhysMem"
 alias less="less -r"
 alias weather="curl -s wttr.in | head -38"
 eval "$(thefuck --alias)"
 
 # Path aliases
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
-alias projects="cd $HOME/github"
+alias projects="cd $HOME/Projects"
 alias ~="cd $HOME"  # The extent of my laziness knows no bounds
 
 # SSH server aliases

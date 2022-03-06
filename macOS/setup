@@ -28,23 +28,21 @@ set -e # Until this is working, exit when any command doesn't run correctly
 git config --global user.name "Sam Waterbury"
 git config --global user.email "samwaterbury1@gmail.com"
 git config --global commit.gpgsign true
+git config --global gpg.program "/usr/local/bin/gpg"
+git config --global init.defaultBranch "main"
+
 # (Add private SSH key and GPG key to GitHub account)
 # GPG Tutorial: https://help.github.com/articles/generating-a-new-gpg-key/
 
 # Make the directory I keep repositories in and clone this repo
-mkdir -p "$HOME/github" \
-    && [ ! -d "$HOME/github/utilities" ] \
-    && git clone "git@github.com:samwaterbury/utilities.git" \
-        "$HOME/github/utilities"
+mkdir -p "$HOME/Projects"
+[ ! -d "$HOME/Projects/utilities" ] \
+    && git clone "git@github.com:samwaterbury/utilities.git" "$HOME/Projects/utilities"
 
 # Terminal configuration
 touch "$HOME/.hushlogin"
-[ ! -f "$HOME/.bash_profile" ] \
-    || mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak" \
-    && cp "$HOME/github/utilities/macOS/dotfiles/.bash_profile" "$HOME/.bash_profile"
-[ ! -f "$HOME/.inputrc" ] \
-    || mv "$HOME/.inputrc" "$HOME/.inputrc.bak" \
-    && cp "$HOME/github/utilities/macOS/dotfiles/.inputrc" "$HOME/.inputrc"
+cp "$HOME/Projects/utilities/macOS/dotfiles/.bash_profile" "$HOME/.bash_profile"
+cp "$HOME/Projects/utilities/macOS/dotfiles/.inputrc" "$HOME/.inputrc"
 
 ############
 # Software #
@@ -54,34 +52,27 @@ touch "$HOME/.hushlogin"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 
-# Brew taps
-brew tap homebrew/cask-versions
-
 # Install brew packages
 brew install \
     bash \
     bash-completion \
     cmake \
     colordiff \
-    ddgr \
     gcc \
     git \
     github/gh/gh \
     gpg \
-    hdf5 \
+    java \
     jq \
-    libgit2 \
-    libomp \
     neofetch \
+    neovim \
     node \
     openssl \
     pandoc \
     pinentry-mac \
     python \
     r \
-    readline \
     ruby \
-    sbt \
     scala \
     speedtest-cli \
     sqlite3 \
@@ -90,33 +81,23 @@ brew install \
     trash \
     tree \
     unar \
-    vim \
     watch \
-    wget \
-    xz \
-    zlib
+    wget
 
 # Install brew casks
-brew cask install \
-    4k-video-downloader \
-    atom \
+brew install --cask \
+    alacritty \
     balenaetcher \
     brooklyn \
     discord \
     docker \
     firefox \
-    firefox-developer-edition \
     google-chrome \
     homebrew/cask-fonts/font-fira-code \
-    hyper \
     ipvanish-vpn \
-    java \
     julia \
-    macpass \
     mactex \
-    mark-text \
     miniconda \
-    pycharm \
     rstudio \
     slack \
     spotify \
@@ -125,61 +106,40 @@ brew cask install \
     the-unarchiver \
     transmission \
     tuxguitar \
+    typora \
     visual-studio-code \
     vlc \
-    webtorrent \
-    xquartz \
-    zoomus
+    zoom
 
-# Hyper terminal configuration
-[ ! -f "$HOME/.hyper.js" ] \
-    || mv "$HOME/.hyper.js" "$HOME/.hyper.js.bak" \
-    && cp "$HOME/github/utilities/macOS/dotfiles/.hyper.js" "$HOME/.hyper.js"
+# Configure Alacritty
+mkdir -p "$HOME/.config/alacritty"
+cp "$HOME/Projects/utilities/macOS/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
 
-# Configure Vim and its plugin manager
-curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir -p "$HOME/.vim/colors" \
-    && cp "$HOME/github/utilities/Vim/delek-nobold.vim" \
-        "$HOME/.vim/colors/delek-nobold.vim"
-[ ! -f "$HOME/.vimrc" ] \
-    || mv "$HOME/.vimrc" "$HOME/.vimrc.bak" \
-    && cp "$HOME/github/utilities/Vim/.vimrc" "$HOME/.vimrc"
-
-# Command line tools for macOS
-sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"
+# Configure Neovim and its plugin manager
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+mkdir -p "$HOME/.config/nvim"
+cp "$HOME/Projects/utilities/Neovim/init.vim" "$HOME/.config/nvim/init.vim"
 
 # Effectively replace the default system Python with Python 3
 ln -s /usr/local/bin/python3 /usr/local/bin/python
 ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 
 # Move PIP configuration file
-mkdir -p "$HOME/.config/pip" \
-    && ln -s "$HOME/github/utilities/Python/pip.conf" "$HOME/.config/pip/pip.conf"
+mkdir -p "$HOME/.config/pip"
+ln -s "$HOME/Projects/utilities/Python/pip.conf" "$HOME/.config/pip/pip.conf"
 
-# Atom configuration
-sh "$HOME/github/utilities/Atom/setup"
+# Tell conda not to automatically activate the base environment in new terminals
+conda config --set auto_activate_base false
 
 # VS Code configuration
-sh "$HOME/github/utilities/VS Code/setup"
+sh "$HOME/Projects/utilities/VS Code/setup"
 
 # Install NPM packages
 npm install --global \
-    dark-mode-cli \
     markdown-toc \
     vmd
 
 # Sometimes the default system Gem installation can't find Xcode's libxml2:
 ## sudo gem install libxml-ruby -- --with-xml2-include=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 --use-system-libraries
 ## sudo gem update
-
-################
-# Manual Stuff #
-################
-
-# Install from the App Store:
-# - Pages
-# - Keynote
-# - Shazam
-# - AdGuard for Safari
-# - PiPifier - PiP for nearly every video

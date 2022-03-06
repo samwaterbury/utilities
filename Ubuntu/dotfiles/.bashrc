@@ -1,6 +1,9 @@
+#!/usr/bin/env bash
+
 # Command aliases
 alias ll="ls -lhAG"
 alias la="ls -A"
+alias vim="nvim"
 alias diff="colordiff"
 alias gs="git status"
 alias top="top -o %MEM"
@@ -10,7 +13,7 @@ alias weather="curl -s wttr.in | head -38"
 eval $(thefuck --alias)
 
 # Path aliases
-alias projects="cd $HOME/github"
+alias projects="cd $HOME/Projects"
 alias ~="cd $HOME" # The extent of my laziness knows no bounds
 
 # SSH server aliases
@@ -20,7 +23,7 @@ alias ~="cd $HOME" # The extent of my laziness knows no bounds
 export HISTCONTROL=ignorespace
 
 # Set default editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
@@ -42,5 +45,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 . /etc/bash_completion.d/git-prompt
 
 # Running rootless Docker requires these
-export PATH="/home/sam/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
