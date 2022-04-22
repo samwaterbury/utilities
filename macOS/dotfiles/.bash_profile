@@ -8,6 +8,7 @@ alias diff="colordiff"
 alias gs="git status"
 alias top="top -o mem"
 alias less="less -r"
+alias pq="parquet-tools cat --json"
 alias weather="curl -s wttr.in | head -38"
 eval "$(thefuck --alias)"
 

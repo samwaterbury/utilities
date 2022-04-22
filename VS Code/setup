@@ -7,7 +7,6 @@
 # Install extensions
 code \
     --install-extension adpyke.vscode-sql-formatter \
-    --install-extension be5invis.toml \
     --install-extension brittanychiang.halcyon-vscode \
     --install-extension christian-kohler.path-intellisense \
     --install-extension dotjoshjohnson.xml
@@ -33,10 +32,12 @@ code \
     --install-extension ryu1kn.partial-diff \
     --install-extension sdras.night-owl \
     --install-extension simonsiefke.svg-preview \
+    --install-extension tamasfe.even-better-toml \
     --install-extension tyriar.sort-lines \
     --install-extension waderyan.gitblame \
     --install-extension yummygum.city-lights-icon-vsc \
     --install-extension yummygum.city-lights-theme \
+    --install-extension zxh404.vscode-proto3
 
 # Copy settings over
 mkdir -p "$HOME/Library/Application Support/Code/User"

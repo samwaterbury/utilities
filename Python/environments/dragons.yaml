@@ -21,4 +21,4 @@ dependencies:
   - tensorflow
   - tensorflow-probability
   - tqdm
-  - xgboost
+  - conda-forge::xgboost

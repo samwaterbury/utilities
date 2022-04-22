@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -26,11 +26,14 @@
   "[restructuredtext]": {
     "editor.wordWrap": "on"
   },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
+  "csharp.suppressDotnetInstallWarning": true,
   "diffEditor.ignoreTrimWhitespace": false,
-  "docker.showStartPage": false,
   "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnPaste": true,
@@ -48,6 +51,7 @@
     "default": "right",
     "jupyter-notebook": "left"
   },
+  "python.analysis.autoImportCompletions": false,
   "python.analysis.diagnosticSeverityOverrides": {
     "reportMissingImports": "error",
     "reportUndefinedVariable": "error"
@@ -56,17 +60,40 @@
   "python.linting.pylintEnabled": true,
   "python.linting.pylintUseMinimalCheckers": false,
   "redhat.telemetry.enabled": false,
-  "rust-client.rustupPath": "~/.cargo/bin/rustup",
   "terminal.external.osxExec": "Alacritty.app",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.inheritEnv": false,
   "window.restoreWindows": "none",
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Visual Studio 2019 Light",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
   "workbench.startupEditor": "none",
   "workbench.statusBar.visible": true,
-  "workbench.tree.indent": 24
+  "workbench.tree.indent": 24,
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "svgPreview.autoOpen": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "editor.inlineSuggest.enabled": true,
+  "git.autofetch": true,
+  "python.defaultInterpreterPath": "/usr/local/Caskroom/miniconda/base/envs/uptakeaws/bin/python",
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": false,
+    "python": true
+  },
+  "restructuredtext.linter.extraArgs": [
+    "--ignore D001"
+  ],
+  "workbench.colorTheme": "Default Light+"
 }
