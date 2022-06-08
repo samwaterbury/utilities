@@ -54,10 +54,13 @@ brew update
 
 # Install brew packages
 brew install \
+    apache-arrow \
+    aws-iam-authenticator \
     bash \
     bash-completion \
     cmake \
     colordiff \
+    fd \
     gcc \
     git \
     github/gh/gh \
@@ -67,13 +70,13 @@ brew install \
     neofetch \
     neovim \
     node \
+    openblas \
     openssl \
     pandoc \
     pinentry-mac \
     python \
     r \
     ruby \
-    scala \
     speedtest-cli \
     sqlite3 \
     thefuck \
@@ -82,26 +85,34 @@ brew install \
     tree \
     unar \
     watch \
-    wget
+    wget \
+    xsv \
+    zellij
 
 # Install brew casks
 brew install --cask \
     alacritty \
     balenaetcher \
+    bat \
     brooklyn \
+    cowsay \
     discord \
     docker \
     firefox \
+    fortune \
     google-chrome \
     homebrew/cask-fonts/font-fira-code \
     ipvanish-vpn \
     julia \
+    lolcat \
     mactex \
     miniconda \
+    mongodb-compass \
     rstudio \
     slack \
     spotify \
     steam \
+    terraform \
     texpad \
     the-unarchiver \
     transmission \
@@ -113,17 +124,18 @@ brew install --cask \
 
 # Configure Alacritty
 mkdir -p "$HOME/.config/alacritty"
-cp "$HOME/Projects/utilities/macOS/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+cp "$HOME/Projects/utilities/macOS/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+
+# Configure Zellij
+mkdir -p "$HOME/.config/zellij/layouts"
+cp "$HOME/Projects/utilities/macOS/zellij/config.yaml" "$HOME/.config/zellij/config.yaml"
+cp "$HOME/Projects/utilities/macOS/zellij/layouts/default.yaml" "$HOME/.config/zellij/layouts/default.yaml"
 
 # Configure Neovim and its plugin manager
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 mkdir -p "$HOME/.config/nvim"
 cp "$HOME/Projects/utilities/Neovim/init.vim" "$HOME/.config/nvim/init.vim"
-
-# Effectively replace the default system Python with Python 3
-ln -s /usr/local/bin/python3 /usr/local/bin/python
-ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 
 # Move PIP configuration file
 mkdir -p "$HOME/.config/pip"
@@ -135,11 +147,5 @@ conda config --set auto_activate_base false
 # VS Code configuration
 sh "$HOME/Projects/utilities/VS Code/setup"
 
-# Install NPM packages
-npm install --global \
-    markdown-toc \
-    vmd
-
-# Sometimes the default system Gem installation can't find Xcode's libxml2:
-## sudo gem install libxml-ruby -- --with-xml2-include=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2 --use-system-libraries
-## sudo gem update
+# Terraform autocomplete
+terraform -install-autocomplete
