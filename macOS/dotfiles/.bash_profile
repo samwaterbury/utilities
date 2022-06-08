@@ -9,8 +9,9 @@ alias gs="git status"
 alias top="top -o mem"
 alias free="top -l 1 -s 0 | grep PhysMem"
 alias less="less -r"
+alias restart-gui="killall -KILL Dock"
 alias weather="curl -s wttr.in | head -38"
-eval "$(thefuck --alias)"
+alias quote="fortune | cowsay | lolcat"
 
 # Path aliases
 alias icloud="cd $HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
@@ -19,6 +20,9 @@ alias ~="cd $HOME"  # The extent of my laziness knows no bounds
 
 # SSH server aliases
 [ -f "$HOME/.secrets" ] || touch "$HOME/.secrets" && . "$HOME/.secrets"
+
+# Silence message about zsh
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Exclude blank lines from bash history
 export HISTCONTROL=ignorespace
@@ -44,14 +48,17 @@ export PATH="$HOME/.cargo/bin:$PATH"
 [ -r "/usr/local/etc/profile.d/bash_completion.sh" ] \
     && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+# Add Homebrew to the PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Alias this tool
+eval "$(thefuck --alias)"
+
 # Install Homebrew casks to ~/Applications instead of /Applications
 export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
 
 # Make local sbin available for Homebrew packages requiring sudo
 export PATH="/usr/local/sbin:$PATH"
 
-# Use Homebrew Ruby instead of the default system installation
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
-export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+# Add Python symlinks to the PATH
+export PATH="/opt/homebrew/opt/python/libexec/bin:$PATH"
