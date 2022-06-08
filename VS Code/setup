@@ -6,7 +6,6 @@
 
 # Install extensions
 code \
-    --install-extension adpyke.vscode-sql-formatter \
     --install-extension brittanychiang.halcyon-vscode \
     --install-extension christian-kohler.path-intellisense \
     --install-extension editorconfig.editorconfig \
@@ -15,15 +14,14 @@ code \
     --install-extension github.github-vscode-theme \
     --install-extension hashicorp.terraform \
     --install-extension mechatroner.rainbow-csv \
-    --install-extension mikestead.dotenv \
     --install-extension ms-azuretools.vscode-docker \
+    --install-extension ms-kubernetes-tools.vscode-kubernetes-tools \
     --install-extension ms-python.python \
     --install-extension ms-toolsai.jupyter \
     --install-extension ms-vscode-remote.vscode-remote-extensionpack \
-    --install-extension ms-vscode.powershell \
     --install-extension naumovs.color-highlight \
-    --install-extension rust-lang.rust \
-    --install-extension ryu1kn.partial-diff \
+    --install-extension redhat.vscode-yaml \
+    --install-extension rust-lang.rust-analyzer \
     --install-extension sdras.night-owl \
     --install-extension simonsiefke.svg-preview \
     --install-extension tamasfe.even-better-toml \
