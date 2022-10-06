@@ -9,6 +9,7 @@ alias gs="git status"
 alias top="top -o mem"
 alias free="top -l 1 -s 0 | grep PhysMem"
 alias less="less -r"
+alias restart-audio="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' | awk '{print $1}'`"
 alias restart-gui="killall -KILL Dock"
 alias weather="curl -s wttr.in | head -38"
 alias quote="fortune | cowsay | lolcat"
@@ -42,7 +43,7 @@ export LSCOLORS=Exfxcxdxbxegedabagacad # BOLD DIRECTORIES
 export PS1="\[\e[1;32m\]\u@macOS\[\e[m\]:\[\e[1;34m\]\W\[\e[m\]\$ " # GREEN-BLUE
 
 # Rust language
-export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
 
 # Bash completion for git
 [ -r "/usr/local/etc/profile.d/bash_completion.sh" ] \
