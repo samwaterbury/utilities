@@ -10,7 +10,7 @@ alias top="top -o %MEM"
 alias free="free -m"
 alias less="less -r"
 alias weather="curl -s wttr.in | head -38"
-eval $(thefuck --alias)
+alias quote="fortune | cowsay | lolcat"
 
 # Path aliases
 alias projects="cd $HOME/Projects"
@@ -36,7 +36,7 @@ alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
 # Rust language
-export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
 
 # Miniconda
 . "$HOME/miniconda3/etc/profile.d/conda.sh"
@@ -44,6 +44,12 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Bash completion for git
 . /etc/bash_completion.d/git-prompt
 
+# Alias this tool
+eval "$(thefuck --alias)"
+
 # Running rootless Docker requires these
 export PATH="$HOME/bin:$PATH"
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
+
+# Add aliases for the latest Python
+export PATH="$HOME/.local/bin/:$PATH"
