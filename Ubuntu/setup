@@ -29,28 +29,32 @@ mkdir -p "$HOME/Projects" \
 
 # Terminal configuration
 cp "$HOME/Projects/utilities/Ubuntu/dotfiles/.bashrc" "$HOME/.bashrc"
+cp "$HOME/Projects/utilities/Ubuntu/dotfiles/.inputrc" "$HOME/.inputrc"
 
 ############
 # Software #
 ############
+
+# Repositories
+add-apt-repository --yes ppa:deadsnakes/ppa
+apt-get update
 
 # Start adding packages
 apt-get install --yes \
     cmake \
     curl \
     colordiff \
-    default-jre \
-    default-jdk \
     docker-compose \
     firefox \
     fonts-firacode \
     gdebi \
     gnome-tweaks \
     gparted \
+    neovim \
     net-tools \
     npm \
     ppa-purge \
-    python3 python3-pip \
+    python3.10 \
     snapd \
     software-properties-common \
     speedtest-cli \
@@ -64,12 +68,10 @@ apt-get install --yes \
     vlc
 
 # Vim
-curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-    && mkdir -p "$HOME/.vim/colors" \
-    && cp "$HOME/Projects/utilities/Vim/delek-nobold.vim" \
-        "$HOME/.vim/colors/delek-nobold.vim" \
-    && cp "$HOME/Projects/utilities/Vim/.vimrc" "$HOME/.vimrc"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+mkdir -p "$HOME/.config/nvim"
+cp "$HOME/Projects/utilities/Neovim/init.vim" "$HOME/.config/nvim/init.vim"
 
 # Snap packages
 snap install spotify discord
@@ -80,13 +82,15 @@ curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs \
     | bash -s -- -y --no-modify-path
 
 # Miniconda
-curl -s https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    | sh
-
-# NPM packages
-npm install --global vmd
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh \
+    && sh miniconda.sh -b \
+    && rm miniconda.sh
 
 # Configure Docker to run without sudo
 curl -fsSL https://get.docker.com/rootless | sh \
     && systemctl --user start docker \
     && loginctl enable-linger $(whoami)
+
+# Add Python symlinks
+sudo ln -s  $(which python3.10) /usr/local/bin/python
+sudo ln -s  $(which python3.10) /usr/local/bin/python3
