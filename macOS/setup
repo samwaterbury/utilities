@@ -58,15 +58,19 @@ brew install \
     aws-iam-authenticator \
     bash \
     bash-completion \
+    bat \
     cmake \
     colordiff \
+    cowsay \
     fd \
+    fortune \
     gcc \
     git \
     github/gh/gh \
     gpg \
     java \
     jq \
+    lolcat \
     neofetch \
     neovim \
     node \
@@ -79,6 +83,7 @@ brew install \
     ruby \
     speedtest-cli \
     sqlite3 \
+    terraform \
     thefuck \
     tmux \
     trash \
@@ -93,18 +98,14 @@ brew install \
 brew install --cask \
     alacritty \
     balenaetcher \
-    bat \
     brooklyn \
-    cowsay \
     discord \
     docker \
     firefox \
-    fortune \
     google-chrome \
     homebrew/cask-fonts/font-fira-code \
     ipvanish-vpn \
     julia \
-    lolcat \
     mactex \
     miniconda \
     mongodb-compass \
@@ -112,7 +113,6 @@ brew install --cask \
     slack \
     spotify \
     steam \
-    terraform \
     texpad \
     the-unarchiver \
     transmission \
@@ -121,6 +121,12 @@ brew install --cask \
     visual-studio-code \
     vlc \
     zoom
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install Poetry
+curl -sSL https://install.python-poetry.org | python3 -
 
 # Configure Alacritty
 mkdir -p "$HOME/.config/alacritty"
